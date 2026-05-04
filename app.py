@@ -247,6 +247,9 @@ async def api_insight_detail(insight_id: int):
             item['key_points'] = []
     return item
 
+@app.get("/api/health")
+async def health_check():
+    return {"status": "healthy"}
 
 # ── Entry point ────────────────────────────────────────────────────────────────
 if __name__ == "__main__":

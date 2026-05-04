@@ -37,8 +37,8 @@ cp .env.example .env
 Edit `.env` and fill in:
 ```env
 GROQ_API_KEY=***
-DATABASE_URL=postgresql://neondb_owner:***@host/neondb?sslmode=require&channel_binding=require
-POPULATE_INTERVAL_SECONDS=300   # every 5 minutes
+DATABASE_URL=your_postgres_db_url
+POPULATE_INTERVAL_SECONDS=3600   # every 60 minutes
 ENTRIES_PER_RUN=3               # 3 articles per run
 ```
 
@@ -54,7 +54,7 @@ Open **http://localhost:8000** — your MindPulse blog is now live!
 ## 📁 Project Structure
 
 ```
-ai-system/
+mindpulse/
 ├── app.py          # FastAPI web server + routes
 ├── database.py     # PostgreSQL pool + schema + queries
 ├── ai_engine.py    # Groq AI content generation
