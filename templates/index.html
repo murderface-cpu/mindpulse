@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="MindPulse - Your daily source for AI-generated insights on Technology, Science, Business, Health, and Society">
+<title>MindPulse | AI-Powered Knowledge Blog</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="/static/favicon.ico">
+<style>
+  :root {
+    --bg: #fefefe;
+    --surface: #f8f9fa;
+    --text: #1a1a2e;
+    --text-secondary: #6b7280;
+    --accent: #6366f1;
+    --accent-dark: #4f46e5;
+    --border: #e5e7eb;
+    --card-bg: #ffffff;
+    --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.04);
+    --shadow-hover: 0 4px 12px rgba(0,0,0,0.1), 0 8px 24px rgba(0,0,0,0.06);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { 
+    background: var(--bg); 
+    color: var(--text); 
+    font-family: 'Inter', system-ui, sans-serif;
+    line-height: 1.6;
+  }
+  a { color: var(--accent); text-decoration: none; transition: color 0.2s; }
+  a:hover { color: var(--accent-dark); }
+
+  /* HEADER */
+  header {
+    background: var(--card-bg);
+    border-bottom: 1px solid var(--border);
+    position: sticky; top: 0; z-index: 100;
+  }
+  .header-inner {
+    max-width: 1100px; margin: 0 auto; padding: 0 24px;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 70px;
+  }
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem; font-weight: 700;
+    color: var(--text); letter-spacing: -0.5px;
+  }
+  .logo span { color: var(--accent); }
+  nav { display: flex; gap: 8px; }
+  nav a {
+    padding: 8px 16px; border-radius: 8px;
+    font-size: 0.9rem; font-weight: 500; color: var(--text-secondary);
+    transition: all 0.2s;
+  }
+  nav a:hover { background: var(--surface); color: var(--text); }
+  
+  /* HERO */
+  .hero {
+    background: linear-gradient(135deg, #1a1a2e 0%, #2d2d44 100%);
+    color: white; padding: 80px 24px;
+    text-align: center;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.8rem; font-weight: 700; margin-bottom: 16px;
+    max-width: 700px; margin-left: auto; margin-right: auto;
+  }
+  .hero p {
+    font-size: 1.15rem; opacity: 0.9; max-width: 550px; margin: 0 auto;
+    color: rgba(255,255,255,0.85);
+  }
+  .hero-badge {
+    display: inline-block; background: rgba(255,255,255,0.15);
+    padding: 6px 16px; border-radius: 99px; font-size: 0.8rem;
+    margin-bottom: 20px; backdrop-filter: blur(4px);
+  }
+
+  /* MAIN LAYOUT */
+  main { max-width: 1100px; margin: 0 auto; padding: 48px 24px; }
+  .layout { display: grid; grid-template-columns: 1fr 320px; gap: 48px; }
+  @media (max-width: 900px) { .layout { grid-template-columns: 1fr; } }
+
+  /* SECTION HEADERS */
+  .section-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 24px; padding-bottom: 12px; border-bottom: 2px solid var(--border);
+  }
+  .section-header h2 {
+    font-family: 'Playfair Display', serif; font-size: 1.4rem;
+  }
+  .section-header a { font-size: 0.9rem; font-weight: 500; }
+
+  /* CATEGORY FILTER */
+  .category-filter {
+    display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 32px;
+  }
+  .cat-pill {
+    padding: 8px 18px; border-radius: 99px; font-size: 0.85rem;
+    font-weight: 500; cursor: pointer; transition: all 0.2s;
+    border: 1px solid var(--border); background: var(--card-bg);
+    color: var(--text-secondary);
+  }
+  .cat-pill:hover, .cat-pill.active {
+    background: var(--accent); color: white; border-color: var(--accent);
+  }
+
+  /* ARTICLE CARD */
+  .article-card {
+    background: var(--card-bg); border-radius: 16px;
+    box-shadow: var(--shadow); overflow: hidden;
+    transition: all 0.3s ease; margin-bottom: 24px;
+  }
+  .article-card:hover {
+    box-shadow: var(--shadow-hover); transform: translateY(-2px);
+  }
+  .article-card .content { padding: 24px; }
+  .article-card .category {
+    font-size: 0.75rem; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.5px; margin-bottom: 10px; display: inline-block;
+  }
+  .cat-Technology { color: #3b82f6; }
+  .cat-Science { color: #10b981; }
+  .cat-Business { color: #f59e0b; }
+  .cat-Health { color: #8b5cf6; }
+  .cat-Society { color: #06b6d4; }
+  .article-card h3 {
+    font-size: 1.25rem; font-weight: 600; margin-bottom: 10px;
+    line-height: 1.4;
+  }
+  .article-card p {
+    color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 16px;
+  }
+  .article-meta {
+    display: flex; align-items: center; gap: 16px;
+    font-size: 0.8rem; color: var(--text-secondary);
+  }
+  .article-meta .dot {
+    width: 4px; height: 4px; background: var(--border); border-radius: 50%;
+  }
+  .read-time { color: var(--accent); font-weight: 500; margin-left: auto; }
+
+  /* SIDEBAR */
+  .sidebar .widget {
+    background: var(--surface); border-radius: 12px; padding: 20px; margin-bottom: 20px;
+  }
+  .sidebar h3 {
+    font-size: 0.9rem; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.5px; color: var(--text-secondary); margin-bottom: 16px;
+  }
+  .trending-list {
+    list-style: none;
+  }
+  .trending-list li {
+    padding: 10px 0; border-bottom: 1px solid var(--border);
+    display: flex; align-items: flex-start; gap: 12px;
+  }
+  .trending-list li:last-child { border: none; }
+  .trending-num {
+    font-size: 1.1rem; font-weight: 700; color: var(--border);
+    min-width: 24px;
+  }
+  .trending-list a {
+    font-size: 0.88rem; line-height: 1.4; color: var(--text);
+    font-weight: 500;
+  }
+  .trending-list a:hover { color: var(--accent); }
+
+  /* NEWSLETTER */
+  .newsletter input {
+    width: 100%; padding: 12px 14px; border-radius: 8px;
+    border: 1px solid var(--border); margin-bottom: 10px;
+    font-size: 0.9rem;
+  }
+  .newsletter button {
+    width: 100%; padding: 12px; border-radius: 8px;
+    background: var(--accent); color: white; border: none;
+    font-weight: 600; cursor: pointer; transition: opacity 0.2s;
+  }
+  .newsletter button:hover { opacity: 0.9; }
+
+  /* FOOTER */
+  footer {
+    background: var(--text); color: rgba(255,255,255,0.7);
+    padding: 48px 24px; margin-top: 64px;
+  }
+  .footer-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px;
+  }
+  @media (max-width: 700px) { .footer-inner { grid-template-columns: 1fr; } }
+  .footer-brand { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: white; margin-bottom: 12px; }
+  .footer-brand span { color: var(--accent); }
+  .footer-col h4 { color: white; font-size: 0.85rem; font-weight: 600; margin-bottom: 16px; }
+  .footer-col ul { list-style: none; }
+  .footer-col li { margin-bottom: 10px; }
+  .footer-col a { color: rgba(255,255,255,0.6); font-size: 0.9rem; }
+  .footer-col a:hover { color: white; }
+
+  /* EMPTY STATE */
+  .empty-state {
+    text-align: center; padding: 60px 20px; color: var(--text-secondary);
+  }
+  .empty-state .icon { font-size: 3rem; margin-bottom: 12px; }
+
+  /* LOAD MORE */
+  .load-more {
+    text-align: center; margin-top: 16px;
+  }
+  .load-more button {
+    background: var(--surface); border: 1px solid var(--border);
+    padding: 12px 32px; border-radius: 8px; font-weight: 500;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .load-more button:hover { background: var(--border); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="/" class="logo">Mind<span>Pulse</span></a>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/latest">Latest</a>
+      <a href="/about">About</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <!-- <div class="hero-badge">✨ Groq AI Powered</div> -->
+  <h1>Your Front-Row Seat to Tomorrow's Insights</h1>
+  <p>Daily curated articles on Technology, Science, Business, Health, and Society - generated by advanced AI and curated for curious minds.</p>
+</div>
+
+<main>
+  <div class="layout">
+    <div class="content-column">
+      <!-- Featured -->
+      {% if featured %}
+      <div class="section-header">
+        <h2>Featured</h2>
+      </div>
+      <a href="/insight/{{ featured[0].id }}" style="text-decoration:none;color:inherit">
+        <div class="article-card" style="padding:0">
+          <div style="height:200px;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.9);font-size:1.5rem;font-weight:600;">
+            {{ featured[0].category }}
+          </div>
+          <div class="content">
+            <span class="category cat-{{ featured[0].category }}">{{ featured[0].category }}</span>
+            <h3>{{ featured[0].topic }}</h3>
+            <p>{{ featured[0].summary[:200] }}...</p>
+            <div class="article-meta">
+              <span>AI Generated</span>
+              <!-- <span class="dot"></span>
+              <span>{{ featured[0].tokens_used }} tokens</span> -->
+              <span class="dot"></span>
+              <span>{{ featured[0].created_at.strftime('%b %d, %Y') }}</span>
+            </div>
+          </div>
+        </div>
+      </a>
+      {% endif %}
+
+      <!-- Latest Articles -->
+      <div class="section-header">
+        <h2>Latest Articles</h2>
+        <span style="color:var(--text-secondary);font-size:0.9rem;">{{ stats.total_insights }} articles</span>
+      </div>
+
+      <!-- Category Filter -->
+      <div class="category-filter">
+        <button class="cat-pill active" onclick="filterCategory('', this)">All</button>
+        {% for cat in stats.categories %}
+        <button class="cat-pill" onclick="filterCategory('{{ cat.category }}', this)">
+          {{ cat.category }}
+        </button>
+        {% endfor %}
+      </div>
+
+      <!-- Articles Grid -->
+      <div id="articles-container">
+        {% if insights %}
+          {% for ins in insights %}
+          <a href="/insight/{{ ins.id }}" style="text-decoration:none;color:inherit">
+            <div class="article-card">
+              <div class="content">
+                <span class="category cat-{{ ins.category }}">{{ ins.category }}</span>
+                <h3>{{ ins.topic }}</h3>
+                <p>{{ ins.summary[:180] }}{% if ins.summary|length > 180 %}...{% endif %}</p>
+                <div class="article-meta">
+                  <span>AI Generated</span>
+                  <!-- <span class="dot"></span>
+                  <span>{{ ins.tokens_used }} tokens</span> -->
+                  <span class="dot"></span>
+                  <span>{{ ins.created_at.strftime('%b %d, %Y') }}</span>
+                  <span class="read-time">5 min read</span>
+                </div>
+              </div>
+            </div>
+          </a>
+          {% endfor %}
+        {% else %}
+          <div class="empty-state">
+            <div class="icon">📝</div>
+            <p>No articles yet. Check back soon — we're generating fresh content!</p>
+          </div>
+        {% endif %}
+      </div>
+      
+      <div class="load-more">
+        <button onclick="loadMore()">Load More Articles</button>
+      </div>
+    </div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="widget">
+        <h3>Trending</h3>
+        <ul class="trending-list">
+          {% for cat in stats.categories[:5] %}
+          <li>
+            <span class="trending-num">{{ loop.index }}</span>
+            <a href="/insights?category={{ cat.category }}">{{ cat.category }} Insights</a>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <div class="widget">
+        <h3>Newsletter</h3>
+        <p style="font-size:0.85rem;color:var(--text-secondary);margin-bottom:12px;">
+          Get the latest AI-generated insights delivered to your inbox weekly.
+        </p>
+        <form class="newsletter" onsubmit="subscribe(event)">
+          <input type="email" placeholder="your@email.com" required>
+          <button type="submit">Subscribe</button>
+        </form>
+      </div>
+
+      <div class="widget">
+        <h3>Popular Tags</h3>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;">
+          <span class="cat-pill">AI</span>
+          <span class="cat-pill">LLM</span>
+          <span class="cat-pill">Technology</span>
+          <span class="cat-pill">Innovation</span>
+          <span class="cat-pill">Research</span>
+        </div>
+      </div>
+    </aside>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-col">
+      <div class="footer-brand">Mind<span>Pulse</span></div>
+      <p style="font-size:0.9rem;opacity:0.7;">Bridging human curiosity with artificial intelligence to bring you thought-provoking content across diverse topics.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Categories</h4>
+      <ul>
+        <li><a href="/insights?category=Technology">Technology</a></li>
+        <li><a href="/insights?category=Science">Science</a></li>
+        <li><a href="/insights?category=Business">Business</a></li>
+        <li><a href="/insights?category=Health">Health</a></li>
+        <li><a href="/insights?category=Society">Society</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Explore</h4>
+      <ul>
+        <li><a href="/latest">Latest Articles</a></li>
+        <li><a href="/about">About Us</a></li>
+        <li><a href="/privacy">Privacy Policy</a></li>
+        <li><a href="/contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Connect</h4>
+      <ul>
+        <li><a href="#">Twitter</a></li>
+        <li><a href="#">LinkedIn</a></li>
+        <li><a href="#">RSS Feed</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script>
+let currentOffset = 0;
+const limit = 10;
+
+async function filterCategory(category, btn) {
+  document.querySelectorAll('.cat-pill').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  
+  const url = category 
+    ? `/api/insights?limit=${limit}&category=${encodeURIComponent(category)}`
+    : `/api/insights?limit=${limit}`;
+  
+  const data = await (await fetch(url)).json();
+  currentOffset = limit;
+  renderArticles(data.data);
+}
+
+async function loadMore() {
+  const activeCat = document.querySelector('.cat-pill.active').textContent;
+  const category = activeCat === 'All' ? '' : activeCat;
+  
+  const url = category
+    ? `/api/insights?limit=${limit}&offset=${currentOffset}&category=${encodeURIComponent(category)}`
+    : `/api/insights?limit=${limit}&offset=${currentOffset}`;
+  
+  const data = await (await fetch(url)).json();
+  if (data.data.length) {
+    appendArticles(data.data);
+    currentOffset += limit;
+  }
+}
+
+function renderArticles(items) {
+  const container = document.getElementById('articles-container');
+  if (!items.length) {
+    container.innerHTML = '<div class="empty-state"><div class="icon">🔍</div><p>No articles found in this category.</p></div>';
+    return;
+  }
+  container.innerHTML = items.map(ins => createArticleHTML(ins)).join('');
+}
+
+function appendArticles(items) {
+  const container = document.getElementById('articles-container');
+  items.forEach(ins => {
+    const div = document.createElement('div');
+    div.innerHTML = createArticleHTML(ins);
+    container.appendChild(div.firstElementChild);
+  });
+}
+
+function createArticleHTML(ins) {
+  const date = new Date(ins.created_at).toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' });
+  return `<a href="/insight/${ins.id}" style="text-decoration:none;color:inherit">
+    <div class="article-card">
+      <div class="content">
+        <span class="category cat-${ins.category}">${ins.category}</span>
+        <h3>${ins.topic}</h3>
+        <p>${(ins.summary||'').slice(0,180)}${(ins.summary||'').length>180?'...':''}</p>
+        <div class="article-meta">
+          <span>AI Generated</span>
+          <span class="dot"></span>
+          <span>${ins.tokens_used} tokens</span>
+          <span class="dot"></span>
+          <span>${date}</span>
+          <span class="read-time">5 min read</span>
+        </div>
+      </div>
+    </div>
+  </a>`;
+}
+
+function subscribe(e) {
+  e.preventDefault();
+  alert('Thanks for subscribing! (Demo)');
+  e.target.reset();
+}
+</script>
+</body>
+</html>
